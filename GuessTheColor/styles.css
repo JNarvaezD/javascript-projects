@@ -1,0 +1,90 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: Helvetica, sans-serif;
+}
+
+body {
+  background: #263849;
+}
+
+header {
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  background: #35bcbf;
+}
+
+.header_sub_menu {
+  background: white;
+  display: flex;
+  margin-top: auto;
+  justify-content: space-around;
+  padding: 10px 0 10px 0;
+  font-size: 20px;
+  color: #35bcbf;
+}
+
+header > p {
+  text-align: center;
+  font-size: 40px;
+  color: white;
+  padding: 2px;
+  font-weight: bold;
+}
+
+.game--layout {
+  display: flex;
+  flex-wrap: wrap;
+  max-width: 780px;
+  margin: auto;
+  margin-top: 60px;
+}
+
+.game--layout > div {
+  width: calc(750px / 3);
+  height: 250px;
+  border-radius: 10px;
+  margin: 3px;
+}
+
+.status_modal {
+  width: 500px;
+  height: 200px;
+  background: #35bcbf;
+  margin: 0;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  -ms-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
+  display: flex;
+  flex-direction: column;
+  font-size: 30px;
+  text-align: center;
+  padding-top: 60px;
+  color: white;
+  font-weight: bold;
+  border: 1px grey solid;
+}
+
+.do_not_display_modal {
+  display: none;
+}
+
+.status_modal > button {
+  display: inline-block;
+  margin-top: auto;
+  padding: 15px;
+  font-size: 20px;
+  font-weight: bold;
+  background: white;
+  color: #35bcbf;
+  border: 0.5px grey solid;
+}
+
+.number_tries,
+.current_streak {
+  font-weight: bold;
+}

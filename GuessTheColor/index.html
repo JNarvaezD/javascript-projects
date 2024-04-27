@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Guess the number</title>
+    <link rel="stylesheet" type="text/css" href="styles.css" />
+  </head>
+  <body>
+    <header>
+      <p>THE GREAT</p>
+      <p class="color_to_guess">RGB(38, 168, 105)</p>
+      <p>GUESSING GAME</p>
+      <div class="header_sub_menu">
+        <p>YOU HAVE <span class="number_tries">3</span> TRIES LEFT</p>
+        <p>YOUR CURRENT STREAK: <span class="current_streak">0</span></p>
+      </div>
+    </header>
+    <section class="game--layout"></section>
+    <div class="status_modal do_not_display_modal">
+      <p class="status_modal--message"></p>
+      <button type="button" id="game_manager">CONTINUE</button>
+    </div>
+    <script src="./script.js"></script>
+  </body>
+</html>
