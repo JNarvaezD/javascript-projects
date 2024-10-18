@@ -1,0 +1,195 @@
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  /* font-size: 10px; */
+  /* 10px / 16px (default size) = 0.625 = 62.5% */
+  /* Percentage of user's browser font-size setting */
+  font-size: 62.5%;
+}
+
+body {
+  font-family: sans-serif;
+  position: relative;
+}
+
+.header {
+  font-size: 2.4rem;
+  font-weight: bold;
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  text-align: center;
+  padding: 0 1.8rem;
+}
+
+.container {
+  background-color: #2d3142;
+  height: 100vh;
+  display: grid;
+  grid-template-rows: 1fr 6fr;
+}
+
+.content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 2rem;
+}
+
+.language-selector select {
+  border: none;
+  font-size: 1.8rem;
+  padding: 1.3rem 1rem;
+  border-radius: 1rem;
+  background-color: #4a516d;
+  color: #fff;
+}
+
+.heading-title {
+  font-size: 4rem;
+  color: #fff;
+}
+
+.word-container,
+.missing-chars-container {
+  max-width: 90rem;
+  min-height: 12rem;
+  background-color: #4a516d;
+  border-radius: 1.2rem;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 6.4rem;
+  font-weight: bold;
+  gap: 2.4rem;
+  padding: 0 1.2rem;
+}
+
+.word-container {
+  flex-wrap: wrap;
+  padding-top: 1.2rem;
+  padding-bottom: 1.2rem;
+}
+
+.card {
+  width: 8.6rem;
+  height: 8.6rem;
+  background-color: #afda9f;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: width 0.3s ease, height 0.3s ease, transform 0.1s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+}
+
+.position-fixed {
+  position: fixed;
+}
+
+.empty-char-container {
+  position: relative;
+}
+
+.position-fixed {
+  position: fixed;
+}
+
+.removable-char:link,
+.removable-char:visited {
+  text-decoration: none;
+  display: inline-block;
+  display: none;
+}
+
+[class*="display-remove-button-"] {
+  display: block !important;
+}
+
+.removable-char {
+  position: absolute;
+  top: 0;
+  right: 0;
+  font-size: 1rem;
+  color: #fff;
+  background-color: #4a516d;
+  border-radius: 50%;
+  margin-top: 2px;
+  margin-right: 2px;
+  padding: 3px;
+}
+
+.on-card-mouse-down {
+  width: 11rem;
+  height: 11rem;
+  transform: rotate(15deg);
+}
+
+.reload-word-icon {
+  width: 4.8rem;
+  height: 4.8rem;
+  color: #fff;
+  position: absolute;
+  bottom: 2.4rem;
+  right: 2.4rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.reload-word-icon:hover {
+  width: 5.8rem;
+  height: 5.8rem;
+}
+
+.word-char {
+  width: 8.6rem;
+  height: 8.6rem;
+  background-color: #afda9f;
+  border-radius: 5px;
+  color: #fff;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.word-filled-correctly-dialog {
+  position: absolute;
+  top: 50%;
+  right: 50%;
+  transform: translate(50%, -50%);
+  width: 50%;
+  background-color: #fff;
+  padding: 3rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  border-radius: 8px;
+  font-weight: bold;
+  visibility: hidden;
+}
+
+.dialog-message {
+  font-size: 4rem;
+  text-align: center;
+}
+
+.dialog-button {
+  font-size: 2rem;
+  margin-top: 1.8rem;
+  background-color: #2d3142;
+  padding: 1rem;
+  color: #fff;
+  border-radius: 1rem;
+  cursor: pointer;
+}
