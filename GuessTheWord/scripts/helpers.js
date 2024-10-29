@@ -61,7 +61,7 @@ function returnMissingCharsIndexes(charsQuantity, limit) {
 }
 
 function generateRandomChar(currentChars) {
-  let findUniqueChar = false;
+  /* let findUniqueChar = false;
   let char = "";
   while (!findUniqueChar) {
     const generateRandomChar = String.fromCharCode(
@@ -71,8 +71,8 @@ function generateRandomChar(currentChars) {
       findUniqueChar = true;
       char = generateRandomChar;
     }
-  }
-  return char;
+  } */
+  return String.fromCharCode(97 + Math.floor(Math.random() * 26));
 }
 
 function returnTargetCardElement(element, uniqueClassIndex) {
@@ -125,15 +125,27 @@ function isOverlapingEmptyCard(card, target) {
 }
 
 function isWordValid(currentWord, currentWordState) {
-  const joinWordElements = [...currentWordState]
-    .map((word) => {
-      return word.textContent;
-    })
-    .join("");
+  const joinWordElements = joinCharsFromContainer(currentWordState);
   if (currentWord == joinWordElements) {
     return true;
   }
   return false;
+}
+
+function isCharContainerFullButWordIsIncorrect(currentWordState) {
+  console.log(joinCharsFromContainer(currentWordState));
+  if (!/\s/.test(joinCharsFromContainer(currentWordState))) {
+    return true;
+  }
+  return false;
+}
+
+function joinCharsFromContainer(wordState) {
+  return [...wordState]
+    .map((word) => {
+      return word.textContent;
+    })
+    .join("");
 }
 
 export {
@@ -145,4 +157,5 @@ export {
   isOverlapingEmptyCard,
   attachWordToMissingCharCard,
   isWordValid,
+  isCharContainerFullButWordIsIncorrect,
 };

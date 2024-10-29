@@ -193,3 +193,19 @@ body {
   border-radius: 1rem;
   cursor: pointer;
 }
+
+.incorrect-word {
+  position: absolute;
+  font-weight: bold;
+  font-size: 1.6rem;
+  background-color: #fff;
+  padding: 1.6rem;
+  border-radius: 1rem;
+  bottom: 2%;
+  transform: translate(-101%);
+  transition: 0.3s all;
+}
+
+.incorrect-word-message {
+  transform: translate(2%, 0);
+}

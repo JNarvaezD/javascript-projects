@@ -7,6 +7,7 @@ import {
   isOverlapingEmptyCard,
   attachWordToMissingCharCard,
   isWordValid,
+  isCharContainerFullButWordIsIncorrect,
 } from "./helpers.js";
 let newX = 0;
 let newY = 0;
@@ -28,6 +29,9 @@ const titles = {
       text: "CONGRATULATIONS, YOU ARE CORRECT!",
       buttonText: "CONTINUE",
     },
+    errorMessageValues: {
+      text: "Oh, looks like something is wrong. You can keep trying!",
+    },
   },
   es: {
     title: "¡ADIVINA LA PALABRA!",
@@ -38,6 +42,9 @@ const titles = {
     dialogValues: {
       text: "FELICIDADES, HAS GANADO!",
       buttonText: "CONTINUAR",
+    },
+    errorMessageValues: {
+      text: "Oh, parece que algo no esta bien ¡Puedes seguir intentandolo!",
     },
   },
 };
@@ -52,6 +59,7 @@ const headingTitleEl = document.querySelector(".heading-title");
 const congratulationsDialogElement = document.querySelector(
   ".word-filled-correctly-dialog"
 );
+const incorrectWordMessageEl = document.querySelector(".incorrect-word");
 const dialogButtonEl = document.querySelector(".dialog-button");
 const dialogTextEl = document.querySelector(".dialog-message");
 
@@ -97,6 +105,7 @@ function setupGameSettings(language) {
   missingCharsContainerEl.innerHTML = "";
   dialogTextEl.textContent = currentLanguage.dialogValues.text;
   dialogButtonEl.textContent = currentLanguage.dialogValues.buttonText;
+  incorrectWordMessageEl.textContent = currentLanguage.errorMessageValues.text;
   setupWordContainers();
 }
 
@@ -180,9 +189,15 @@ function mouseUp() {
     attachWordToMissingCharCard(overlapedCard, card);
     const currentWordState = document.querySelectorAll(".word-char");
     const isValid = isWordValid(currentWord, currentWordState);
-    console.log(isValid);
     if (isValid) {
       showCongratulationsDialog("visible", "blur(2px)");
+    }
+
+    if (!isValid && isCharContainerFullButWordIsIncorrect(currentWordState)) {
+      incorrectWordMessageEl.classList.add("incorrect-word-message");
+      setTimeout(() => {
+        incorrectWordMessageEl.classList.remove("incorrect-word-message");
+      }, 3000);
     }
   }
 
@@ -192,7 +207,6 @@ function mouseUp() {
 }
 
 function showCongratulationsDialog(visibility, filter) {
-  console.log("Llegue");
   congratulationsDialogElement.style.visibility = visibility;
   document.querySelector(".container").style.filter = filter;
 }
@@ -201,7 +215,9 @@ function removeSelectionFromWordContainer(element) {
   const removeButtonUniqueClass = [...element.target.classList].at(-1);
   const char = removeButtonUniqueClass.split("-").at(-1);
   const index = removeButtonUniqueClass.split("-").at(-2);
-  element.target.closest(`[class^='char-']`).firstElementChild.textContent = ``;
+  element.target.closest(
+    `[class^='char-']`
+  ).firstElementChild.innerHTML = `&nbsp;`;
   element.target.classList.remove(removeButtonUniqueClass);
   createMissingCharCard(index, char);
 
