@@ -34,7 +34,7 @@ function returnWordParts(word) {
     if (missingCharIndexes.includes(index)) {
       missingChars.push(splitedWord[index]);
       remainingChars[index] = "";
-      missingChars.push(generateRandomChar(missingChars));
+      missingChars.push(generateRandomChar());
       continue;
     }
     remainingChars[index] = splitedWord[index];
@@ -60,7 +60,7 @@ function returnMissingCharsIndexes(charsQuantity, limit) {
   return charIndexes;
 }
 
-function generateRandomChar(currentChars) {
+function generateRandomChar() {
   /* let findUniqueChar = false;
   let char = "";
   while (!findUniqueChar) {

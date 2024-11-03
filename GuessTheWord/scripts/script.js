@@ -17,6 +17,8 @@ let card = null;
 let missingCharCards = [];
 let currentWord = "";
 let currentLanguageSetUp = "es";
+let countDown = null;
+const timerEl = document.querySelector(".timer");
 /* Default settings object */
 const titles = {
   en: {
@@ -26,8 +28,14 @@ const titles = {
       { name: "English", lang: "en" },
     ],
     dialogValues: {
-      text: "CONGRATULATIONS, YOU ARE CORRECT!",
-      buttonText: "CONTINUE",
+      win: {
+        text: "CONGRATULATIONS, YOU ARE CORRECT!",
+        buttonText: "CONTINUE",
+      },
+      lose: {
+        text: "Don't give up, good luck next time!",
+        buttonText: "CONTINUE",
+      },
     },
     errorMessageValues: {
       text: "Oh, looks like something is wrong. You can keep trying!",
@@ -40,8 +48,14 @@ const titles = {
       { name: "Ingles", lang: "en" },
     ],
     dialogValues: {
-      text: "FELICIDADES, HAS GANADO!",
-      buttonText: "CONTINUAR",
+      win: {
+        text: "¡FELICIDADES, HAS GANADO!",
+        buttonText: "CONTINUAR",
+      },
+      lose: {
+        text: "¡No te rindas, buena suerte en tu proximo intento!",
+        buttonText: "CONTINUAR",
+      },
     },
     errorMessageValues: {
       text: "Oh, parece que algo no esta bien ¡Puedes seguir intentandolo!",
@@ -56,9 +70,7 @@ const missingCharsContainerEl = document.querySelector(
 );
 const langSelectEl = document.getElementById("lang");
 const headingTitleEl = document.querySelector(".heading-title");
-const congratulationsDialogElement = document.querySelector(
-  ".word-filled-correctly-dialog"
-);
+const dialogElement = document.querySelector(".status-dialog");
 const incorrectWordMessageEl = document.querySelector(".incorrect-word");
 const dialogButtonEl = document.querySelector(".dialog-button");
 const dialogTextEl = document.querySelector(".dialog-message");
@@ -70,7 +82,7 @@ langSelectEl.addEventListener("change", (event) => {
 });
 
 dialogButtonEl.addEventListener("click", () => {
-  showCongratulationsDialog("hidden", "");
+  showDialog("hidden", "");
   setupGameSettings();
 });
 
@@ -103,9 +115,10 @@ function setupGameSettings(language) {
   langSelectEl.options.selectedIndex = language == "es" ? 0 : 1;
   wordContainerEl.innerHTML = "";
   missingCharsContainerEl.innerHTML = "";
-  dialogTextEl.textContent = currentLanguage.dialogValues.text;
-  dialogButtonEl.textContent = currentLanguage.dialogValues.buttonText;
+  dialogTextEl.textContent = currentLanguage.dialogValues.win.text;
+  dialogButtonEl.textContent = currentLanguage.dialogValues.win.buttonText;
   incorrectWordMessageEl.textContent = currentLanguage.errorMessageValues.text;
+  timer();
   setupWordContainers();
 }
 
@@ -190,7 +203,8 @@ function mouseUp() {
     const currentWordState = document.querySelectorAll(".word-char");
     const isValid = isWordValid(currentWord, currentWordState);
     if (isValid) {
-      showCongratulationsDialog("visible", "blur(2px)");
+      showDialog("visible", "blur(2px)");
+      clearInterval(countDown);
     }
 
     if (!isValid && isCharContainerFullButWordIsIncorrect(currentWordState)) {
@@ -206,8 +220,8 @@ function mouseUp() {
   card.classList.remove("position-fixed");
 }
 
-function showCongratulationsDialog(visibility, filter) {
-  congratulationsDialogElement.style.visibility = visibility;
+function showDialog(visibility, filter) {
+  dialogElement.style.visibility = visibility;
   document.querySelector(".container").style.filter = filter;
 }
 
@@ -239,6 +253,28 @@ reloadIcon.addEventListener("click", () => {
     }, 50);
   }, 500);
 });
+
+function timer() {
+  let time = 60;
+  clearInterval(countDown);
+  countDown = setInterval(() => {
+    time--;
+    const minutes = Math.floor(time / 60);
+    const seconds = time % 60;
+    timerEl.textContent = `${minutes < 10 ? "0" : ""}${minutes}:${
+      seconds < 10 ? "0" : ""
+    }${seconds}`;
+
+    if (time <= 0) {
+      timerEl.textContent = "Time's up!";
+      dialogTextEl.textContent =
+        titles[currentLanguageSetUp].dialogValues.lose.text;
+      dialogButtonEl.textContent =
+        titles[currentLanguageSetUp].dialogValues.lose.buttonText;
+      showDialog("visible", "blur(2px)");
+    }
+  }, 1000);
+}
 
 async function getRandomWord() {
   const apiCall = await fetch(

@@ -160,7 +160,7 @@ body {
   align-items: center;
 }
 
-.word-filled-correctly-dialog {
+.status-dialog {
   position: absolute;
   top: 50%;
   right: 50%;
